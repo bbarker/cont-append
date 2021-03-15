@@ -1,0 +1,40 @@
+[package]
+name = "cont-append"
+version = "0.0.1"
+authors = ["Brandon Barker <brandon.barker@gmail.com>"]
+edition = "2018"
+license = "MPL-2.0"
+# license-file = "LICENSE.txt"
+description  = ""
+categories = ["command-line-utilities"]
+homepage = "https://github.com/bbarker/cont-append"
+repository = "https://github.com/bbarker/cont-append"
+documentation = "https://docs.rs/cont-append"
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "contappend"
+path = "src/lib.rs"
+
+[[bin]]
+name = "contappend"
+path = "src/main.rs"
+
+[dependencies]
+# byteorder = "1.4.2"
+notify = "5.0.0-pre.6"
+seahorse = "1.1.1"
+sfw-tools = "0.2.1"
+tail = "0.3.0"
+# tailcall = "0.1.6"
+# tailcall = { git = "https://github.com/alecdotninja/tailcall.git", branch = "rewrite-as-loop"}
+# im = "15.0.0"
+
+[dev-dependencies.cargo-husky]
+version = "1.5.0"
+features = ["precommit-hook", "run-cargo-test", "run-cargo-clippy", "run-cargo-fmt"]
