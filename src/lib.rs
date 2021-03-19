@@ -20,6 +20,8 @@
 
 use std::io::Error;
 
+use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
+use path_abs::PathDir;
 use seahorse::{App, Command, Context};
 use sfwtools::error::*;
 
@@ -57,7 +59,19 @@ pub fn run_cappend(src: &str, dst: &str) {
     cappend(src, dst).user_err("Error in cappend");
 }
 
-pub fn cappend(src: &str, dst: &str) -> Result<(), Error> {
+pub fn cappend(src: &str, dst: &str) -> notify::Result<()> {
     println!("Hello from cappend");
+    let mut watcher: RecommendedWatcher = Watcher::new_immediate(|res| match res {
+        Ok(event) => println!("event: {:?}", event),
+        Err(e) => println!("watch error: {:?}", e),
+    })?;
+    watcher.configure(Config::PreciseEvents(true))?;
+
+    // TODO: call watch_dir on src
+    Ok(())
+}
+
+fn watch_dir(watcher: &mut RecommendedWatcher, dir: &PathDir) -> notify::Result<()> {
+    watcher.watch(dir.as_path(), RecursiveMode::Recursive)?;
     Ok(())
 }
