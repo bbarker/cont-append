@@ -18,7 +18,7 @@
 #![deny(unused_must_use)]
 // #![feature(try_trait)]
 
-use std::io::Error;
+use anyhow::{Context as ErrContext, Result};
 
 use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
 use path_abs::PathDir;
@@ -59,15 +59,18 @@ pub fn run_cappend(src: &str, dst: &str) {
     cappend(src, dst).user_err("Error in cappend");
 }
 
-pub fn cappend(src: &str, dst: &str) -> notify::Result<()> {
+pub fn cappend(src: &str, dst: &str) -> Result<()> {
     println!("Hello from cappend");
     let mut watcher: RecommendedWatcher = Watcher::new_immediate(|res| match res {
         Ok(event) => println!("event: {:?}", event),
         Err(e) => println!("watch error: {:?}", e),
     })?;
-    watcher.configure(Config::PreciseEvents(true))?;
+    watcher
+        .configure(Config::PreciseEvents(true))
+        .context("Error configuring watcher for PreciseEvents")?;
 
     // TODO: call watch_dir on src
+    let src = PathDir::create(src)?;
     Ok(())
 }
 

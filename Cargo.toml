@@ -26,6 +26,7 @@ name = "contappend"
 path = "src/main.rs"
 
 [dependencies]
+anyhow = "1.0.39"
 # byteorder = "1.4.2"
 notify = "5.0.0-pre.6"
 path_abs = "0.5.1"
