@@ -61,16 +61,19 @@ pub fn run_cappend(src: &str, dst: &str) {
 
 pub fn cappend(src: &str, dst: &str) -> Result<()> {
     println!("Hello from cappend");
-    let mut watcher: RecommendedWatcher = Watcher::new_immediate(|res| match res {
-        Ok(event) => println!("event: {:?}", event),
-        Err(e) => println!("watch error: {:?}", e),
+    let mut watcher: RecommendedWatcher = Watcher::new_immediate(|res| {
+        println!("Debug: received an event");
+        match res {
+            Ok(event) => println!("event: {:?}", event),
+            Err(e) => println!("watch error: {:?}", e),
+        }
     })?;
     watcher
         .configure(Config::PreciseEvents(true))
         .context("Error configuring watcher for PreciseEvents")?;
 
-    // TODO: call watch_dir on src
     let src = PathDir::create(src)?;
+    watch_dir(&mut watcher, &src)?;
     Ok(())
 }
 
