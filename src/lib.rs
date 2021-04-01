@@ -76,8 +76,10 @@ pub fn cappend(src: &str, dst: &str) -> Result<!> {
 
     let src = PathDir::create(src)?;
     watch_dir(&mut watcher, &src)?;
+
+    let secs_1000 = time::Duration::from_secs(1000);
     loop {
-        thread::sleep(time::Duration::from_secs(1000));
+        thread::sleep(secs_1000);
     }
 }
 
