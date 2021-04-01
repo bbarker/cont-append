@@ -31,7 +31,7 @@ anyhow = "1.0.39"
 notify = "5.0.0-pre.6"
 path_abs = "0.5.1"
 seahorse = "1.1.1"
-sfw-tools = "0.2.1"
+sfw-tools = "0.3.0"
 tail = "0.3.0"
 # tailcall = "0.1.6"
 # tailcall = { git = "https://github.com/alecdotninja/tailcall.git", branch = "rewrite-as-loop"}

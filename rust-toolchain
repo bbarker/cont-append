@@ -1,2 +1,7 @@
-nightly-2021-03-11-x86_64-unknown-linux-gnu
+[toolchain]
+channel = "nightly-2021-03-11"
+components = [ "rustfmt", "rustc-dev" ]
+targets = [ "x86_64-unknown-linux-gnu" ]
+profile = "minimal"
+
 
