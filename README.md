@@ -1,6 +1,11 @@
 # cont-append
 Continuous data appender; can be used for safe log retention.
 
+Note that this is not meant to watch extremely large directories
+due to constraints like the
+[inotify watch limit](https://unix.stackexchange.com/questions/13751/kernel-inotify-watch-limit-reached),
+which can be tweaked in the operating system.
+
 
 ## Algorithm Overview
 

@@ -15,11 +15,13 @@
 //!   3. Otherwise, presmuably we have appended data to the file,
 //!      and let `tail` do its thing.
 
-#![deny(unused_must_use)]
 // #![feature(try_trait)]
+#![deny(unused_must_use)]
+#![feature(never_type)]
+
+use std::{thread, time};
 
 use anyhow::{Context as ErrContext, Result};
-
 use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
 use path_abs::PathDir;
 use seahorse::{App, Command, Context};
@@ -59,7 +61,7 @@ pub fn run_cappend(src: &str, dst: &str) {
     cappend(src, dst).user_err("Error in cappend");
 }
 
-pub fn cappend(src: &str, dst: &str) -> Result<()> {
+pub fn cappend(src: &str, dst: &str) -> Result<!> {
     println!("Hello from cappend");
     let mut watcher: RecommendedWatcher = Watcher::new_immediate(|res| {
         println!("Debug: received an event");
@@ -74,7 +76,9 @@ pub fn cappend(src: &str, dst: &str) -> Result<()> {
 
     let src = PathDir::create(src)?;
     watch_dir(&mut watcher, &src)?;
-    Ok(())
+    loop {
+        thread::sleep(time::Duration::from_secs(1000));
+    }
 }
 
 fn watch_dir(watcher: &mut RecommendedWatcher, dir: &PathDir) -> notify::Result<()> {
