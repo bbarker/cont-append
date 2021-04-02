@@ -6,6 +6,14 @@ due to constraints like the
 [inotify watch limit](https://unix.stackexchange.com/questions/13751/kernel-inotify-watch-limit-reached),
 which can be tweaked in the operating system.
 
+We may add an option to use a 
+[polling based watcher](https://docs.rs/notify/5.0.0-pre.6/notify/poll/struct.PollWatcher.html)
+in various capacities. It could be run in addition to
+the inotify-based watcher at some interval
+to avoid [missed events](https://stackoverflow.com/questions/239988/filesystemwatcher-vs-polling-to-watch-for-file-changes),
+or it could be used instead of the inotify watcher
+in cases where inotify is not suitable.
+
 
 ## Algorithm Overview
 
